@@ -17,13 +17,39 @@ public class Calculator {
 
 		// for each token ...
 		for (String token : tokens) {
-			//   - if number, push onto stack
-			//   - if operator:
-			//       pop two numbers off stack,
-			//       compute result,
-			//       push result onto stack
+			try {
+				// if number, push onto stack
+				int number = Integer.parseInt(token);
+				stack.push(number);
+			} catch (NumberFormatException e) {
+				// check if operator ...
+				if (token.length() != 1) {
+					System.err.println("Error: invalid token");
+					System.exit(1);
+				}
+
+				int rhs = stack.pop(), lhs = stack.pop();
+				char op = token.charAt(0);				
+				switch (op) {
+				case '+':
+					stack.push(lhs + rhs);
+					break;
+				case '-':
+					stack.push(lhs - rhs);
+					break;
+				case '*':
+					stack.push(lhs * rhs);
+					break;
+				case '/':
+					stack.push(lhs / rhs);
+					break;
+				default:
+					System.err.println("Error: invalid token");
+					System.exit(1);
+				}
+			}
 		}
-		// result is on the stack
+		System.out.println(stack.pop());
 	}
 
 }
