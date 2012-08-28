@@ -2,17 +2,11 @@ import java.util.Stack;
 
 public class Calculator {
 
-	public static void main(String[] args) {
-		if (args.length != 1) {
-			System.err.println("Usage: Calculator <expression>");
-			System.exit(1);
-		}
-
+	public static int calculate(String expression) {
 		// initialize an empty stack
 		Stack<Integer> stack = new Stack<Integer>();
 
 		// split expression string into tokens
-		String expression = args[0];
 		String[] tokens = expression.split(" ");
 
 		// for each token ...
@@ -29,7 +23,7 @@ public class Calculator {
 				}
 
 				int rhs = stack.pop(), lhs = stack.pop();
-				char op = token.charAt(0);				
+				char op = token.charAt(0);
 				switch (op) {
 				case '+':
 					stack.push(lhs + rhs);
@@ -49,7 +43,15 @@ public class Calculator {
 				}
 			}
 		}
-		System.out.println(stack.pop());
+		return stack.pop();
+	}
+
+	public static void main(String[] args) {
+		if (args.length != 1) {
+			System.err.println("Usage: Calculator <expression>");
+			System.exit(1);
+		}
+		System.out.println(calculate(args[0]));
 	}
 
 }
