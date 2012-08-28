@@ -2,6 +2,20 @@ import java.util.Stack;
 
 public class Calculator {
 
+	public static boolean handleNumber(String token, Stack<Integer> stack) {
+		try {
+			int number = Integer.parseInt(token);
+			stack.push(number);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	public static boolean handleOperator(String token, Stack<Integer> stack) {
+		return false; // TODO
+	}
+
 	public static int calculate(String expression) {
 		if (expression.isEmpty()) {
 			throw new IllegalArgumentException("empty expression");
@@ -15,11 +29,7 @@ public class Calculator {
 
 		// for each token ...
 		for (String token : tokens) {
-			try {
-				// if number, push onto stack
-				int number = Integer.parseInt(token);
-				stack.push(number);
-			} catch (NumberFormatException e) {
+			if (!handleNumber(token, stack)) {
 				// check if operator ...
 				if (token.length() != 1) {
 					throw new IllegalArgumentException("invalid token: " + token);
