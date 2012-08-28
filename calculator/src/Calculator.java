@@ -11,9 +11,34 @@ public class Calculator {
 			return false;
 		}
 	}
-	
+
 	public static boolean handleOperator(String token, Stack<Integer> stack) {
-		return false; // TODO
+		if (token.length() != 1) {
+			return false;
+		}
+
+		// BROKEN: DON'T POP BEFORE WE HAVE AN OP
+		if (stack.size() < 2) {
+			throw new IllegalArgumentException("not enough operands");
+		}
+		int rhs = stack.pop(), lhs = stack.pop();
+		char op = token.charAt(0);
+		switch (op) {
+		case '+':
+			stack.push(lhs + rhs);
+			return true;
+		case '-':
+			stack.push(lhs - rhs);
+			return true;
+		case '*':
+			stack.push(lhs * rhs);
+			return true;
+		case '/':
+			stack.push(lhs / rhs);
+			return true;
+		default:
+			return false;
+		}
 	}
 
 	public static int calculate(String expression) {
@@ -29,33 +54,9 @@ public class Calculator {
 
 		// for each token ...
 		for (String token : tokens) {
-			if (!handleNumber(token, stack)) {
-				// check if operator ...
-				if (token.length() != 1) {
-					throw new IllegalArgumentException("invalid token: " + token);
-				}
-
-				if (stack.size() < 2) {
-					throw new IllegalArgumentException("not enough operands");
-				}
-				int rhs = stack.pop(), lhs = stack.pop();
-				char op = token.charAt(0);
-				switch (op) {
-				case '+':
-					stack.push(lhs + rhs);
-					break;
-				case '-':
-					stack.push(lhs - rhs);
-					break;
-				case '*':
-					stack.push(lhs * rhs);
-					break;
-				case '/':
-					stack.push(lhs / rhs);
-					break;
-				default:
-					throw new IllegalArgumentException("invalid token: " + token);
-				}
+			// BROKEN: CAN'T HANDLE OPERATOR BEFORE NUMBER!
+			if (!(handleOperator(token, stack) || handleNumber(token, stack))) {
+				throw new IllegalArgumentException("invalid token: " + token);
 			}
 		}
 		return stack.pop();
