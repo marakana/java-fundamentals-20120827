@@ -3,6 +3,10 @@ import java.util.Stack;
 public class Calculator {
 
 	public static int calculate(String expression) {
+		if (expression.isEmpty()) {
+			throw new IllegalArgumentException("empty expression");
+		}
+
 		// initialize an empty stack
 		Stack<Integer> stack = new Stack<Integer>();
 
@@ -18,10 +22,12 @@ public class Calculator {
 			} catch (NumberFormatException e) {
 				// check if operator ...
 				if (token.length() != 1) {
-					System.err.println("Error: invalid token");
-					System.exit(1);
+					throw new IllegalArgumentException("invalid token: " + token);
 				}
 
+				if (stack.size() < 2) {
+					throw new IllegalArgumentException("not enough operands");
+				}
 				int rhs = stack.pop(), lhs = stack.pop();
 				char op = token.charAt(0);
 				switch (op) {
@@ -38,8 +44,7 @@ public class Calculator {
 					stack.push(lhs / rhs);
 					break;
 				default:
-					System.err.println("Error: invalid token");
-					System.exit(1);
+					throw new IllegalArgumentException("invalid token: " + token);
 				}
 			}
 		}
@@ -47,11 +52,14 @@ public class Calculator {
 	}
 
 	public static void main(String[] args) {
-		if (args.length != 1) {
-			System.err.println("Usage: Calculator <expression>");
-			System.exit(1);
+		try {
+			if (args.length != 1) {
+				throw new IllegalArgumentException("Usage: Calculator <expression>");
+			}
+			System.out.println(calculate(args[0]));
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
-		System.out.println(calculate(args[0]));
 	}
 
 }
