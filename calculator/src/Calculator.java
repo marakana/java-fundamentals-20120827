@@ -17,28 +17,30 @@ public class Calculator {
 			return false;
 		}
 
-		// BROKEN: DON'T POP BEFORE WE HAVE AN OP
+		Operator op;
+		switch (token.charAt(0)) {
+		case '+':
+			op = new Add();
+			break;
+		case '-':
+			op = new Subtract();
+			break;
+		case '*':
+			op = new Multiply();
+			break;
+		case '/':
+			op = new Divide();
+			break;
+		default:
+			return false;
+		}
+
 		if (stack.size() < 2) {
 			throw new IllegalArgumentException("not enough operands");
 		}
 		int rhs = stack.pop(), lhs = stack.pop();
-		char op = token.charAt(0);
-		switch (op) {
-		case '+':
-			stack.push(lhs + rhs);
-			return true;
-		case '-':
-			stack.push(lhs - rhs);
-			return true;
-		case '*':
-			stack.push(lhs * rhs);
-			return true;
-		case '/':
-			stack.push(lhs / rhs);
-			return true;
-		default:
-			return false;
-		}
+		stack.push(op.operate(lhs, rhs));
+		return true;
 	}
 
 	public static int calculate(String expression) {
