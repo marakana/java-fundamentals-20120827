@@ -1,13 +1,19 @@
 package com.marakana.addressbook;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Person implements Contact {
 
 	private String firstName;
 	private String lastName;
-	private Map<String, Address> addresses;
-	private Map<String, Phone> phoneNumbers;
+	private Map<String, Address> addresses = new HashMap<String, Address>();
+	private Map<String, Phone> phoneNumbers = new HashMap<String, Phone>();
+
+	public Person(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	@Override
 	public String getName() {

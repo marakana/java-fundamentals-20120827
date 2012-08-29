@@ -8,8 +8,10 @@ public class AddressBookTest {
 
 	@Test
 	public void test() {
-		Phone p = new Phone(8675309, 0);
-		
+		Person dan = new Person("Dan", "Rosen");
+		AddressBook contacts = new AddressBook();
+		contacts.add(dan);
+		contacts.find("Dan Rosen");
 	}
 
 }
