@@ -56,7 +56,6 @@ public class Calculator {
 
 		// for each token ...
 		for (String token : tokens) {
-			// BROKEN: CAN'T HANDLE OPERATOR BEFORE NUMBER!
 			if (!(handleOperator(token, stack) || handleNumber(token, stack))) {
 				throw new IllegalArgumentException("invalid token: " + token);
 			}

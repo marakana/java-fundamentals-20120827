@@ -1,6 +1,9 @@
+package com.marakana.calculator;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.marakana.calculator.Calculator;
 
 
 public class CalculatorTest {

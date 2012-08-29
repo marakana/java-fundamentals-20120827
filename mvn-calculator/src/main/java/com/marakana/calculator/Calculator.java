@@ -1,4 +1,11 @@
+package com.marakana.calculator;
 import java.util.Stack;
+
+import com.marakana.calculator.operators.Add;
+import com.marakana.calculator.operators.Divide;
+import com.marakana.calculator.operators.Multiply;
+import com.marakana.calculator.operators.Operator;
+import com.marakana.calculator.operators.Subtract;
 
 public class Calculator {
 

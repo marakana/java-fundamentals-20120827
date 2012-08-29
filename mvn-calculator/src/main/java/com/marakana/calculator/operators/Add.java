@@ -1,3 +1,4 @@
+package com.marakana.calculator.operators;
 
 public class Add implements Operator {
 

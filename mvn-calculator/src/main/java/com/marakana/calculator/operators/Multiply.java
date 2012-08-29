@@ -1,3 +1,4 @@
+package com.marakana.calculator.operators;
 
 public class Multiply implements Operator {
 
