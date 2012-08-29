@@ -1,4 +1,5 @@
 package com.marakana.calculator;
+
 import java.util.Stack;
 
 import com.marakana.calculator.operators.Add;
@@ -73,7 +74,8 @@ public class Calculator {
 	public static void main(String[] args) {
 		try {
 			if (args.length != 1) {
-				throw new IllegalArgumentException("Usage: Calculator <expression>");
+				throw new IllegalArgumentException(
+						"Usage: Calculator <expression>");
 			}
 			System.out.println(calculate(args[0]));
 		} catch (Exception e) {
