@@ -1,6 +1,7 @@
 package com.marakana.addressbook;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -14,6 +15,27 @@ public class AddressBook {
 			}
 		}
 		throw new NoSuchElementException();
+	}
+
+	public Set<Person> getPersonContacts() {
+		Set<Person> persons = new HashSet<Person>();
+		for (Contact contact : contacts) {
+			if (contact instanceof Person) {
+				persons.add((Person) contact);
+			}
+		}
+		return persons;
+	}
+
+	public Map<ZodiacSign, Set<Person>> getPersonsBySign() {
+		/* initialize a new, empty sorted map
+		 * get person contacts
+		 * for each person:
+		 *   - get its sign
+		 *   - get the set for the sign
+		 *   - put the person in the set
+		 * return the map
+		 */
 	}
 
 	public void add(Contact contact) {

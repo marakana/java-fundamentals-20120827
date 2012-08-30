@@ -8,7 +8,7 @@ public class AddressBookTest {
 
 	@Test
 	public void test() {
-		Person dan = new Person("Dan", "Rosen");
+		Person dan = new Person("Dan", "Rosen", ZodiacSign.TAURUS);
 		AddressBook contacts = new AddressBook();
 		contacts.add(dan);
 		contacts.find("Dan Rosen");

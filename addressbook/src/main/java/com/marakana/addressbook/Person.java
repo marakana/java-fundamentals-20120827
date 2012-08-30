@@ -9,10 +9,12 @@ public class Person implements Contact {
 	private final String lastName;
 	private final Map<String, Address> addresses = new HashMap<String, Address>();
 	private final Map<String, Phone> phoneNumbers = new HashMap<String, Phone>();
+	private final ZodiacSign sign;
 
-	public Person(String firstName, String lastName) {
+	public Person(String firstName, String lastName, ZodiacSign sign) {
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.sign = sign;
 	}
 
 	@Override
@@ -30,6 +32,10 @@ public class Person implements Contact {
 		return phoneNumbers.get(label);
 	}
 
+	public ZodiacSign getSign() {
+		return sign;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -38,6 +44,7 @@ public class Person implements Contact {
 				+ ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result
 				+ ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((sign == null) ? 0 : sign.hashCode());
 		return result;
 	}
 
@@ -59,6 +66,8 @@ public class Person implements Contact {
 			if (other.lastName != null)
 				return false;
 		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (sign != other.sign)
 			return false;
 		return true;
 	}
