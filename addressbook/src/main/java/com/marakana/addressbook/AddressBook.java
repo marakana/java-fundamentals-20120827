@@ -1,5 +1,6 @@
 package com.marakana.addressbook;
 
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -27,15 +28,29 @@ public class AddressBook {
 		return persons;
 	}
 
+	// multimap!!!
 	public Map<ZodiacSign, Set<Person>> getPersonsBySign() {
-		/* initialize a new, empty sorted map
-		 * get person contacts
-		 * for each person:
-		 *   - get its sign
-		 *   - get the set for the sign
-		 *   - put the person in the set
-		 * return the map
-		 */
+
+		// initialize an empty map
+		Map<ZodiacSign, Set<Person>> persons = new EnumMap<ZodiacSign, Set<Person>>(ZodiacSign.class);
+
+		// for each contact that is a person ...
+		for (Person person : getPersonContacts()) {
+
+			// get the person's sign, and get the set of people with that sign
+			ZodiacSign sign = person.getSign();
+			Set<Person> personsWithSign = persons.get(sign);
+
+			// if there is no set yet, create one and put it in the map
+			if (personsWithSign == null) {
+				personsWithSign = new HashSet<Person>();
+				persons.put(sign, personsWithSign);
+			}
+
+			// put the person in the set
+			personsWithSign.add(person);
+		}
+		return persons;
 	}
 
 	public void add(Contact contact) {
