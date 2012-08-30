@@ -14,4 +14,10 @@ public class AddressBookTest {
 		contacts.find("Dan Rosen");
 	}
 
+	@Test
+	public void equalPhoneNumbersMustBeEqual() {
+		Phone p1 = new Phone(8675309, 0);
+		Phone p2 = new Phone(8675309, 0);
+		assertEquals(p1, p2);
+	}
 }
