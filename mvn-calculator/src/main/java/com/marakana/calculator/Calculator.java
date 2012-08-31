@@ -1,12 +1,12 @@
 package com.marakana.calculator;
 
+import static com.marakana.calculator.Operator.ADD;
+import static com.marakana.calculator.Operator.DIVIDE;
+import static com.marakana.calculator.Operator.MULTIPLY;
+import static com.marakana.calculator.Operator.SUBTRACT;
+
 import java.util.Stack;
 
-import com.marakana.calculator.operators.Add;
-import com.marakana.calculator.operators.Divide;
-import com.marakana.calculator.operators.Multiply;
-import com.marakana.calculator.operators.Operator;
-import com.marakana.calculator.operators.Subtract;
 
 public class Calculator {
 
@@ -28,16 +28,16 @@ public class Calculator {
 		Operator op;
 		switch (token.charAt(0)) {
 		case '+':
-			op = new Add();
+			op = ADD;
 			break;
 		case '-':
-			op = new Subtract();
+			op = SUBTRACT;
 			break;
 		case '*':
-			op = new Multiply();
+			op = MULTIPLY;
 			break;
 		case '/':
-			op = new Divide();
+			op = DIVIDE;
 			break;
 		default:
 			return false;
