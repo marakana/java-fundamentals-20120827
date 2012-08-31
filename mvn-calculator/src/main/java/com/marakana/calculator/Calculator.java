@@ -7,20 +7,24 @@ import static com.marakana.calculator.Operator.SUBTRACT;
 
 import java.util.Stack;
 
+import com.marakana.calculator.expressions.Expression;
+import com.marakana.calculator.expressions.NumberExpression;
+import com.marakana.calculator.expressions.OperationExpression;
+
 
 public class Calculator {
 
-	public static boolean handleNumber(String token, Stack<Integer> stack) {
+	public static boolean handleNumber(String token, Stack<Expression> stack) {
 		try {
 			int number = Integer.parseInt(token);
-			stack.push(number);
+			stack.push(new NumberExpression(number));
 			return true;
 		} catch (NumberFormatException e) {
 			return false;
 		}
 	}
 
-	public static boolean handleOperator(String token, Stack<Integer> stack) {
+	public static boolean handleOperator(String token, Stack<Expression> stack) {
 		if (token.length() != 1) {
 			return false;
 		}
@@ -46,18 +50,18 @@ public class Calculator {
 		if (stack.size() < 2) {
 			throw new IllegalArgumentException("not enough operands");
 		}
-		int rhs = stack.pop(), lhs = stack.pop();
-		stack.push(op.operate(lhs, rhs));
+		Expression rhs = stack.pop(), lhs = stack.pop();
+		stack.push(new OperationExpression(op, lhs, rhs));
 		return true;
 	}
 
-	public static int calculate(String expression) {
+	public static Expression parse(String expression) {
 		if (expression.isEmpty()) {
 			throw new IllegalArgumentException("empty expression");
 		}
 
 		// initialize an empty stack
-		Stack<Integer> stack = new Stack<Integer>();
+		Stack<Expression> stack = new Stack<Expression>();
 
 		// split expression string into tokens
 		String[] tokens = expression.split(" ");
@@ -77,7 +81,7 @@ public class Calculator {
 				throw new IllegalArgumentException(
 						"Usage: Calculator <expression>");
 			}
-			System.out.println(calculate(args[0]));
+			System.out.println(parse(args[0]));
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
