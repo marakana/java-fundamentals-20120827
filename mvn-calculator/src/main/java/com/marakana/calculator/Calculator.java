@@ -75,6 +75,10 @@ public class Calculator {
 		return stack.pop();
 	}
 
+	public static int calculate(String expression) {
+		return parse(expression).getValue();
+	}
+
 	public static void main(String[] args) {
 		try {
 			if (args.length != 1) {

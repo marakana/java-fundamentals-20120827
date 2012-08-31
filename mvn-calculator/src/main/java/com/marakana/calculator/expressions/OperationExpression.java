@@ -13,6 +13,10 @@ public class OperationExpression implements Expression {
 		this.rhs = rhs;
 	}
 
+	public int getValue() {
+		return op.operate(lhs.getValue(), rhs.getValue());
+	}
+
 	public Operator getOp() {
 		return op;
 	}
